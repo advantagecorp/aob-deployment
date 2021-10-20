@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    advantageonlinebanking: webapp
+  name: webapp
+spec:
+  type: NodePort
+  ports:
+    - name: "8082"
+      port: 8082
+      targetPort: 80
+      nodePort: 30005
+  selector:
+    advantageonlinebanking: webapp
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    advantageonlinebanking: webapp
+  name: webapp
+spec:
+  replicas: 1
+  strategy: {}
+  selector:
+    matchLabels:
+      advantageonlinebanking: webapp
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        advantageonlinebanking: webapp
+    spec:
+      containers:
+        - image: advantageonlineshopping/aob-web-app:latest
+          env:
+            - name: REACT_APP_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: REACT_APP_API_URL
+                  name: aob-configmap
+          name: aob-web-app
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+status: {}

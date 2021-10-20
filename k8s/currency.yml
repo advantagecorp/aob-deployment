@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    advantageonlinebanking: currency-service-api
+  name: currency-service-api
+spec:
+  ports:
+    - name: "3000"
+      port: 3000
+      targetPort: 3000
+  selector:
+    advantageonlinebanking: currency-service-api
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    advantageonlinebanking: currency-service-api
+  name: currency-service-api
+spec:
+  replicas: 1
+  strategy: {}
+  selector:
+    matchLabels:
+      advantageonlinebanking: currency-service-api
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        advantageonlinebanking: currency-service-api
+    spec:
+      containers:
+        - env:
+            - name: DAILY_RATES_ENDPOINT
+              value: https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml
+            - name: DBDATABASE
+              value: currency
+            - name: DBHOST
+              value: mysql
+            - name: DBPASSWORD
+              value: pass
+            - name: DBPORT
+              value: "3306"
+            - name: DBUSER
+              value: root
+            - name: FULL_HISTORY_RATES_ENDPOINT
+              value: https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml
+            - name: NINETY_DAYS_RATES_ENDPOINT
+              value: https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml
+            - name: PORT
+              value: "3000"
+            - name: EUREKA_HOST
+              value: aob-discovery
+            - name: AOB_PROXY_HOST
+              value: null
+            - name: AOB_PROXY_PORT
+              value: null
+            - name: GATEWAY_URL
+              value: http://aob-gateway:8080/api
+          image: advantageonlineshopping/aob-currencies-service
+          name: aob-currency-service-api
+          ports:
+            - containerPort: 3000
+          resources: {}
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+status: {}

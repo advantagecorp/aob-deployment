@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    advantageonlinebanking: bank-card-service
+  name: bank-card-service
+spec:
+  type: NodePort
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
+  selector:
+    advantageonlinebanking: bank-card-service
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    advantageonlinebanking: bank-card-service
+  name: bank-card-service
+spec:
+  replicas: 1
+  strategy: {}
+  selector:
+    matchLabels:
+      advantageonlinebanking: bank-card-service
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        advantageonlinebanking: bank-card-service
+    spec:
+      containers:
+        - image: advantageonlineshopping/aob-bank-cards-service:latest
+          env:
+            - name: GATEWAY_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: GATEWAY_URL
+                  name: aob-configmap
+          name: aob-bank-cards-service
+          resources: {}
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+status: {}

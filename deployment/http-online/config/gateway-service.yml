@@ -1,0 +1,102 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        wiretap: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - '*'
+            allowedHeaders: '*'
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+
+      routes:
+        - id: management-frontend
+          uri: http://management-console-app
+          predicates:
+            - Host=management.ci.advantageonlinebanking.com
+
+        - id: webapp-frontend
+          uri: http://webapp
+          predicates:
+            - Path=/,/static/**
+
+        - id: discovery
+          uri: http://discovery:8761
+          predicates:
+            - Path=/discovery/**
+          filters:
+            - RewritePath=/discovery/?(?<segment>.*), /$\{segment}
+
+        - id: usersRoot
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - RewritePath=/api/users?(?<segment>.*), /api/v1/users$\{segment}
+
+        - id: accounts
+          uri: lb://bank-account-service
+          predicates:
+            - Path=/api/accounts/**
+          filters:
+            - RewritePath=/api/accounts/?(?<segment>.*), /api/v1/accounts/$\{segment}
+
+        - id: cards
+          uri: lb://bank-cards-service
+          predicates:
+            - Path=/api/cards/**
+          filters:
+            - RewritePath=/api/cards/?(?<segment>.*), /api/v1/cards/$\{segment}
+
+        - id: forecasts
+          uri: lb://forecast-service
+          predicates:
+            - Path=/api/forecasts/**
+          filters:
+            - RewritePath=/api/forecasts/?(?<segment>.*), /api/v1/forecasts/$\{segment}
+
+        - id: stocks-trading
+          uri: lb://stocks-trading-service
+          predicates:
+            - Path=/api/stocks/**
+          filters:
+            - RewritePath=/api/stocks/?(?<segment>.*), /api/v1/stocks/$\{segment}
+
+        - id: loans
+          uri: lb://loan-calc-service
+          predicates:
+            - Path=/api/loans/**
+          filters:
+            - RewritePath=/api/loans, /Bank/LoanCalculator/1.0/LOANCALC
+
+        - id: currency-api
+          uri: http://currency-service-api:3000
+          predicates:
+            - Path=/api/currency/**, /api/currencies/**
+          filters:
+            - RewritePath=/api/currency/?(?<segment>.*), /api/v1/currency/$\{segment}
+            - RewritePath=/api/currencies/?(?<segment>.*), /api/v1/currencies/$\{segment}
+
+        - id: management-api
+          uri: http://management-console-api:3001
+          predicates:
+            - Path=/api/management/**
+          filters:
+            - RewritePath=/api/management/?(?<segment>.*), /api/v1/management/$\{segment}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/

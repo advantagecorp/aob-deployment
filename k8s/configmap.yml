@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aob-configmap
+data:
+  GATEWAY_URL: http://aob-gateway:8080/api
+  CONFIG_REPO_FILE_SYSTEM: file:///configservice/microservices
+  CONFIG_REPO_URI: /root/config
+  CONFIG_SERVICE_ACTIVE_PROFILE: native
+  SECURE_GATEWAY: "false"
+  ACCOUNT_PG_HOST: ""
+  ACCOUNT_PG_PORT: ""
+  CARD_PG_HOST: ""
+  CARD_PG_PORT: ""
+  USER_PG_HOST: ""
+  USER_PG_PORT: ""
+  MANAGEMENT_CONSOLE_API_HOST: ""
+  MANAGEMENT_CONSOLE_API_PORT: ""
+  CURRENCY_SERVICE_HOST: ""
+  CURRENCY_SERVICE_PORT: ""
+  MANAGEMENT_CONSOLE_URL: http://master_node_ip:30080/console
+  REACT_APP_API_URL: http://master_node_ip:30080/api
+  STOCKS_API_PORT: "3002"
+  EUREKA_HOST: aob-discovery
+  EUREKA_PORT: "8761"
+  JWT_SECRET: advantageusersjwtsecret
