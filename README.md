@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://ci.advantageonlinebanking.com/" target="blank"><img  width=500 src="https://github.com/advantagecorp/aob-deployment/blob/main/advantageBank-logo.svg" alt="Advantage Bank logo"></a>
+  <a href="https://ci.advantageonlinebanking.com/" target="blank"><img  width=500 src="https://github.com/advantagecorp/aob-deployment/blob/master/advantageBank-logo.svg" alt="Advantage Bank logo"></a>
 </p>
 
 ## Description
