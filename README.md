@@ -3,11 +3,6 @@
 </p>
 
 ## Description
-<p align="center">
-  <a href="https://ci.advantageonlinebanking.com/" target="blank"><img  width=500 src="https://github.com/advantagecorp/aob-deployment/blob/master/advantageBank-logo.svg" alt="Advantage Bank logo"></a>
-</p>
-
-## Description
 The Advantage Online Banking (AOB) app consists of both the AOB Bank Demo and the AOB Management Console. AOB can be deployed in several ways:
 1.	[Docker-compose](#deploy-aob-using-docker-compose) (single-machine deployment). Use this for quick deployment with fast setup. It’s  probably best for a quick demo
 2.	[Kubernetes cluster](#deploy-aob-to-a-kubernetes-cluster). Use this to show the Kubernetes capabilities without using a cloud provider (which incurs more cost). In this situation, you must run commands that install Kubernetes and create nodes from scratch.
