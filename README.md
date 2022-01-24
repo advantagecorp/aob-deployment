@@ -3,6 +3,10 @@
 </p>
 
 ## Description
+The Advantage Online Banking (AOB) app consists of both the AOB Bank Demo and the AOB Management Console. AOB can be deployed in several ways:
+1.	Docker-compose (single-machine deployment). Use this for quick deployment with fast setup. It’s  probably best for a quick demo
+2.	Kubernetes cluster. Use this to show the Kubernetes capabilities without using a cloud provider (which incurs more cost). In this situation, you must run commands that install Kubernetes and create nodes from scratch.
+3.	Managed Kubernetes cluster. Use this for long-term deployment on a system where you will use it for a lengthy period of time (not for a quick demo). In this situation, the cloud provider installs Kubernetes and creates the nodes; you do NOT have to do that. All you have to do is get the cluster ready for use.
 
 ## Prerequisites
 -   Centos 7
