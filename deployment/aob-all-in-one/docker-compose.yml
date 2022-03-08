@@ -63,6 +63,8 @@ services:
       - aob-discovery
     env_file:
       - .env
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
 
   bank-card-service:
     image: 'advantageonlineshopping/aob-bank-cards-service:latest'
