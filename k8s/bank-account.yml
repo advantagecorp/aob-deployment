@@ -41,6 +41,8 @@ spec:
                 configMapKeyRef:
                   key: GATEWAY_URL
                   name: aob-configmap
+            - name: SPRING_PROFILES_ACTIVE
+              value: default
           name: aob-bank-account-service
           resources: {}
       restartPolicy: Always

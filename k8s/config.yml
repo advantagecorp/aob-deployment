@@ -109,6 +109,11 @@ spec:
                 configMapKeyRef:
                   key: SECURE_GATEWAY
                   name: aob-configmap
+            - name: POPULATE_JAVA_SVC_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: POPULATE_JAVA_SVC_DB
+                  name: aob-configmap
           image: advantageonlineshopping/aob-config-service:latest
           name: aob-config
           imagePullPolicy: Always

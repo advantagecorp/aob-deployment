@@ -45,6 +45,11 @@ spec:
                 configMapKeyRef:
                   key: REACT_APP_API_URL
                   name: aob-configmap
+            - name: PROD_MODE
+              valueFrom:
+                configMapKeyRef:
+                  key: PROD_MODE
+                  name: aob-configmap
           name: aob-management-console-app
           ports:
             - containerPort: 80

@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    advantageonlinebanking: db-postgres
+  name: db-postgres
+spec:
+  type: NodePort
+  ports:
+    - name: "5432"
+      port: 5432
+      targetPort: 5432
+      nodePort: 30543
+  selector:
+    advantageonlinebanking: db-postgres
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    advantageonlinebanking: db-postgres
+  name: db-postgres
+spec:
+  replicas: 1
+  strategy: {}
+  selector:
+    matchLabels:
+      advantageonlinebanking: db-postgres
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        advantageonlinebanking: db-postgres
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+          image: advantageonlineshopping/aob-postgresql-db:latest
+          name: aob-db-postgres
+          ports:
+            - containerPort: 5432
+          resources: {}
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+status: {}
