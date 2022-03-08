@@ -21,15 +21,15 @@ The Advantage Online Banking (AOB) app consists of both the AOB Bank Demo and th
 
 - cd into the deployment folder
 
-      cd aob-deployment
+      cd aob-deployment/aob-all-in-one
 
 - change the access permissions of startup.sh
 
-        chmod +x startup.sh
+        chmod +x startaob.sh
 
 - run the script
 
-        ./stratup.sh
+        ./startaob.sh
 
 ### Deploy AOB to a kubernetes cluster
 - cd into the deployment folder
@@ -62,3 +62,4 @@ The Advantage Online Banking (AOB) app consists of both the AOB Bank Demo and th
 
   - managedK8s = on a managed cluster set this value to true
   - webapp.host.ip = use the cloud provider endpoint ip/domain name
+  - config.persistData = set to true to save data by using volumes for postgres and mysql
