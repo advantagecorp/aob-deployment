@@ -175,8 +175,8 @@ services:
       TYPEORM_SYNCHRONIZE: "true"
       TYPEORM_ENTITIES: ./dist/src/modules/**/*.entity.js
       TYPEORM_MIGRATIONS: ./dist/migrations/*.js
-      HTTP_PROXY: http://proxy.mfdemoportal.com:443
-      HTTPS_PROXY: http://proxy.mfdemoportal.com:443
+      # HTTP_PROXY: ***REMOVED***
+      # HTTPS_PROXY: ***REMOVED***
       NO_PROXY: '*db-postgres*,aob-discovery:8761,localhost,127.0.0.1,ci.advantageonlinebanking.com'
 
     env_file:
